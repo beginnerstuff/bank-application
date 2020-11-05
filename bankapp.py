@@ -1,4 +1,6 @@
-
+#This is a simple bank application 
+#Authors:Halil,Taha,Alp
+#Date:2020 October
 
 def işlemyap(tercih2,kullanıcıhesap):
     if tercih2 == "1":
@@ -7,7 +9,7 @@ def işlemyap(tercih2,kullanıcıhesap):
 
         if miktar < kullanıcıhesap:
 
-            kullanıcıhesap -= miktar
+            kullanıcıhesap -= miktar 
 
             print("kalan bakiyeniz ",kullanıcıhesap," $ dır.")
 
@@ -30,66 +32,94 @@ def işlemyap(tercih2,kullanıcıhesap):
     else:
         print("bir işlem seçtiğinizden emin olun !!")
 
+def karşılamayap(kullanıcıadı,kullanıcıhesap):
 
-taha = "taha" 
-tahap="123"
-tahah = 58.0
+    print("hoşgeldin ",kullanıcıadı)
+    print("bakiyeniz: ",kullanıcıhesap," $ dır")
+    tercih = input("1:para çekmek için\n2:para yüklemek için\n3:çıkmak için\n")
 
-halil = "halil"
-halilp = "456"
-halilh = 42.0
+    return tercih
 
-alp = "alp"
-alpp = "789"
-alph = 100.0
+def context():
+    
+    text = open("C:\\Users\\Halil\\OneDrive\\Masaüstü\\Python With HAT\\kullanıcılar.txt","r",encoding="utf-8")
+    obj=text.readlines()
+    i = 0
+    kullancı=list()
 
+    while i < 3:
+        veri = obj[i].split(",")
+        kullancı.append(veri)
+        i+=1
+    return kullancı
 
-control = True
-username = input("kullanıcı adını giriniz:")
-password = input("parolanızı girin:")
-while control:
+def uptadeContext():
+        #burada dosya güncelleme işlemi yapılacak kişinin hangi satırda olduğunun bilinmessi için id eklenecek
+        #ve id okunarak o satır silinip tekrar güncellenecek
 
-    if username == taha and password == tahap:
-        print("hoşgeldin taha !!")
-        print("bakiyeniz: ",tahah," $ dır")
-        tercih = input("1:para çekmek için\n2:para yüklemek için\n3:çıkmak için\n")
-        işlemyap(tercih,tahah)
+    pass
 
-        yenidenişlemkontrol = input("başka bir işlem yapmak ister misin (evet/hayır):")
+def girişkontrol(username,password):
+    kullanıcı = context()
+    for i in kullanıcı:
 
-        if yenidenişlemkontrol == "evet":
-            control = True
-        elif yenidenişlemkontrol == "hayır":
-            control = False
+        if username == i[0] and password == i[1]:
+            return i
+        else:
+            continue
+    return None
+    
+def main():
+    
+    username = input("kullanıcı adını giriniz:")
+    password = input("parolanızı girin:")
 
-    elif username == halil and password == halilp:
-        print("hoşgeldin halil !!")
-        print("bakiyeniz: ",halilh," $ dır")
-        tercih = input("1:para çekmek için\n2:para yüklemek için\n3:çıkmak için\n")
-        işlemyap(tercih,halilh)
+    control = True
 
-        yenidenişlemkontrol = input("başka bir işlem yapmak ister misin (evet/hayır):")
+    while control:
+        veri = girişkontrol(username,password)
+        if veri != None:
+            
+            kullanıcı = veri[0]
+            hesap = veri[2]
+            hesap = float(hesap[:4])
 
-        if yenidenişlemkontrol == "evet":
-            control = True
-        elif yenidenişlemkontrol == "hayır":
-            control = False
-
-
-    elif username == alp and password == alpp:
-        print("hoşgeldin alp !!")
-        print("bakiyeniz: ",alph," $ dır")
-        tercih = input("1:para çekmek için\n2:para yüklemek için\n3:çıkmak için\n")
-        işlemyap(tercih,alph)
+            tercih = karşılamayap(kullanıcı,hesap)
         
-        yenidenişlemkontrol = input("başka bir işlem yapmak ister misin (evet/hayır):")
+            işlemyap(tercih,hesap)
 
-        if yenidenişlemkontrol == "evet":
-            control = True
-        elif yenidenişlemkontrol == "hayır":
+            yenidenişlemkontrol = input("başka bir işlem yapmak ister misin (evet/hayır):")
+
+            if yenidenişlemkontrol == "evet":
+                control = True
+            elif yenidenişlemkontrol == "hayır":
+                control = False
+            else:
+                print("bir sorun oluştu")
+                control = False
+        elif veri == None:
+            print("böyle bir kullanıcı yok")
             control = False
+        else:
+            print("bir hata oluştu")
+            control=False
 
-    else:
-        print("kullanıcı adı ya da parola hatalı !!")
+main()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
