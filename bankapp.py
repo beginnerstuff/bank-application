@@ -2,7 +2,7 @@
 #Authors:Halil,Taha,Alp
 #Date:2020 October
 
-def işlemyap(tercih2,kullanıcıhesap):
+def işlemyap(tercih2,kullanıcıid,kullanıcıadı,şifresi,kullanıcıhesap):
     if tercih2 == "1":
 
         miktar = float(input("çekmek istediğiniz miktarı girin:"))
@@ -10,27 +10,38 @@ def işlemyap(tercih2,kullanıcıhesap):
         if miktar < kullanıcıhesap:
 
             kullanıcıhesap -= miktar 
+            kullanıcıhesap = str(kullanıcıhesap)
 
             print("kalan bakiyeniz ",kullanıcıhesap," $ dır.")
+
+            güncelhesap = [kullanıcıid,kullanıcıadı,şifresi,kullanıcıhesap]
+            return güncelhesap
 
         elif miktar > kullanıcıhesap:
 
             print("yeterli bakiyeniz yok !!")
+            return None
 
     elif tercih2 == "2":
 
         miktar = float(input("yüklemek istediğiniz miktarı girin:"))
 
         kullanıcıhesap += miktar
+        kullanıcıhesap = str(kullanıcıhesap)
 
         print("hesap bakiyeniz ",kullanıcıhesap, " $ dır.")
+        güncelhesap = [kullanıcıid,kullanıcıadı,şifresi,kullanıcıhesap]
+        return güncelhesap
+
     
     elif tercih2 == "3":
 
         print("tekrar bekleriz")
+        return None
         
     else:
         print("bir işlem seçtiğinizden emin olun !!")
+        return None
 
 def karşılamayap(kullanıcıadı,kullanıcıhesap):
 
@@ -53,17 +64,32 @@ def context():
         i+=1
     return kullancı
 
-def uptadeContext():
-        #burada dosya güncelleme işlemi yapılacak kişinin hangi satırda olduğunun bilinmessi için id eklenecek
-        #ve id okunarak o satır silinip tekrar güncellenecek
+def uptadeContext(kullanıcıbilgi):
+    #burada dosya güncelleme işlemi yapılacak kişinin hangi satırda olduğunun bilinmessi için id eklenecek
+    #ve id okunarak o satır silinip tekrar güncellenecek
+    if kullanıcıbilgi  == None:
+        print("bir hata oluştu")
+        return
+    else:
+        textoku = open("C:\\Users\\Halil\\OneDrive\\Masaüstü\\Python With HAT\\kullanıcılar.txt","r",encoding="utf-8")
+        veri = textoku.readlines()
+        index = int(kullanıcıbilgi[0])
+        textoku.close()
 
-    pass
+        del veri[index]
+
+        veri.insert(index,kullanıcıbilgi[0]+","+kullanıcıbilgi[1]+","+kullanıcıbilgi[2]+","+kullanıcıbilgi[3]+"\n")
+        text = open("C:\\Users\\Halil\\OneDrive\\Masaüstü\\Python With HAT\\kullanıcılar.txt","w",encoding="utf-8")
+        text.writelines(veri)
+
+        text.close()
+        print("işlem başarılı")
 
 def girişkontrol(username,password):
     kullanıcı = context()
     for i in kullanıcı:
 
-        if username == i[0] and password == i[1]:
+        if username == i[1] and password == i[2]:
             return i
         else:
             continue
@@ -79,14 +105,16 @@ def main():
     while control:
         veri = girişkontrol(username,password)
         if veri != None:
-            
-            kullanıcı = veri[0]
-            hesap = veri[2]
-            hesap = float(hesap[:4])
+            kullanıcıid = veri[0]
+            kullanıcıadı = veri[1]
+            şifre = veri[2]
+            kullanıcıhesap = veri[3]
+            kullanıcıhesap = float(kullanıcıhesap[:4])
 
-            tercih = karşılamayap(kullanıcı,hesap)
+            tercih = karşılamayap(kullanıcıadı,kullanıcıhesap)
         
-            işlemyap(tercih,hesap)
+            güncelveri = işlemyap(tercih,kullanıcıid,kullanıcıadı,şifre,kullanıcıhesap)
+            uptadeContext(güncelveri)
 
             yenidenişlemkontrol = input("başka bir işlem yapmak ister misin (evet/hayır):")
 
