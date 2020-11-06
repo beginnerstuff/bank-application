@@ -2,18 +2,18 @@
 #Authors:Halil,Taha,Alp
 #Date:2020 October
 
-def işlemyap(tercih2,kullanıcıhesap):
+def islemyap(tercih2,kullanıcıhesap):
     if tercih2 == "1":
 
         miktar = float(input("çekmek istediğiniz miktarı girin:"))
 
-        if miktar < kullanıcıhesap:
+        if miktar < kullanicihesap:
 
-            kullanıcıhesap -= miktar 
+            kullanicihesap -= miktar 
 
-            print("kalan bakiyeniz ",kullanıcıhesap," $ dır.")
+            print("kalan bakiyeniz ",kullanicihesap," $ dır.")
 
-        elif miktar > kullanıcıhesap:
+        elif miktar > kullanicihesap:
 
             print("yeterli bakiyeniz yok !!")
 
@@ -21,9 +21,9 @@ def işlemyap(tercih2,kullanıcıhesap):
 
         miktar = float(input("yüklemek istediğiniz miktarı girin:"))
 
-        kullanıcıhesap += miktar
+        kullanicihesap += miktar
 
-        print("hesap bakiyeniz ",kullanıcıhesap, " $ dır.")
+        print("hesap bakiyeniz ",kullanicihesap, " $ dır.")
     
     elif tercih2 == "3":
 
@@ -32,10 +32,10 @@ def işlemyap(tercih2,kullanıcıhesap):
     else:
         print("bir işlem seçtiğinizden emin olun !!")
 
-def karşılamayap(kullanıcıadı,kullanıcıhesap):
+def karsilamayap(kullaniciadi,kullanicihesap):
 
-    print("hoşgeldin ",kullanıcıadı)
-    print("bakiyeniz: ",kullanıcıhesap," $ dır")
+    print("hoşgeldin ",kullaniciadi)
+    print("bakiyeniz: ",kullanicihesap," $ dır")
     tercih = input("1:para çekmek için\n2:para yüklemek için\n3:çıkmak için\n")
 
     return tercih
@@ -45,13 +45,13 @@ def context():
     text = open("C:\\Users\\Halil\\OneDrive\\Masaüstü\\Python With HAT\\kullanıcılar.txt","r",encoding="utf-8")
     obj=text.readlines()
     i = 0
-    kullancı=list()
+    kullanci=list()
 
     while i < 3:
         veri = obj[i].split(",")
-        kullancı.append(veri)
+        kullanci.append(veri)
         i+=1
-    return kullancı
+    return kullanci
 
 def uptadeContext():
         #burada dosya güncelleme işlemi yapılacak kişinin hangi satırda olduğunun bilinmessi için id eklenecek
@@ -59,9 +59,9 @@ def uptadeContext():
 
     pass
 
-def girişkontrol(username,password):
-    kullanıcı = context()
-    for i in kullanıcı:
+def giriskontrol(username,password):
+    kullanici = context()
+    for i in kullanici:
 
         if username == i[0] and password == i[1]:
             return i
@@ -77,22 +77,22 @@ def main():
     control = True
 
     while control:
-        veri = girişkontrol(username,password)
+        veri = giriskontrol(username,password)
         if veri != None:
             
-            kullanıcı = veri[0]
+            kullanici = veri[0]
             hesap = veri[2]
             hesap = float(hesap[:4])
 
-            tercih = karşılamayap(kullanıcı,hesap)
+            tercih = karsilamayap(kullanici,hesap)
         
-            işlemyap(tercih,hesap)
+            islemyap(tercih,hesap)
 
-            yenidenişlemkontrol = input("başka bir işlem yapmak ister misin (evet/hayır):")
+            yenidenislemkontrol = input("başka bir işlem yapmak ister misin (evet/hayır):")
 
-            if yenidenişlemkontrol == "evet":
+            if yenidenislemkontrol == "evet":
                 control = True
-            elif yenidenişlemkontrol == "hayır":
+            elif yenidenislemkontrol == "hayır":
                 control = False
             else:
                 print("bir sorun oluştu")
