@@ -109,7 +109,7 @@ def main():
             kullanıcıadı = veri[1]
             şifre = veri[2]
             kullanıcıhesap = veri[3]
-            kullanıcıhesap = float(kullanıcıhesap[:4])
+            kullanıcıhesap = float(kullanıcıhesap)
 
             tercih = karşılamayap(kullanıcıadı,kullanıcıhesap)
         
