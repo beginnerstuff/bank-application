@@ -132,8 +132,9 @@ def main():
             print("bir hata oluştu")
             control=False
 
-main()
-
+            
+if __name__ == __main__:
+    main()
 
 
 
